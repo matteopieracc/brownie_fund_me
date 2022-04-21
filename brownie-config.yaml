@@ -1,0 +1,38 @@
+dotenv: .env
+wallets: 
+    from_key: ${PRIVATE_KEY}
+
+dependencies: 
+  # - <organization/repo@version>
+  - smartcontractkit/chainlink-brownie-contracts@1.1.1
+  # we need to tell brownie that whenever it finds "chainlink" in the source code
+  # it must refer to the repo over
+compiler:
+  solc:
+    remappings: 
+      - '@chainlink=smartcontractkit/chainlink-brownie-contracts@1.1.1'
+networks:
+  # kovan:
+  #mainnet:
+  default: "development" # could be set to any network we have
+  # forking infura:
+  # brownie networks add development mainnet-fork-dev /
+  # cmd=ganache-cli host=127.0.0.1 fork='https://mainnet.infura.io/v3/$WEB3_INFURA_PROJECT_ID'/
+  # accounts=10 mnemonic=brownie port=8545
+  # notice the single quote so that the variable is passed as is to command and exploited to 
+  # the project ID on infura
+  # https://mainnet.infura.io/v3/c1fe833f712d49dbb769342d70676b3c
+  # forking alchemy.io: 
+  # brownie networks add development mainnet-fork-dev /
+  # cmd=ganache-cli host=127.0.0.1 fork=https://eth-mainnet.alchemyapi.io/v2/kng5QTdpvgsSgknR_fnBB8LqqxvjujL4 /
+  # accounts=10 mnemonic=brownie port=8545
+  mainnet-fork-dev:
+    eth_usd_price_feed: "0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419"
+    verify: False
+  rinkeby:
+    eth_usd_price_feed: "0x8A753747A1Fa494EC906cE90E9f37563A8AF630e"
+    verify: True
+  development:
+    verify: False
+  ganache-local:
+    verify: False
